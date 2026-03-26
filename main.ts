@@ -114,6 +114,8 @@ namespace motor {
 
 
     let initialized = false
+    // Tablica na 9 elementów (indeksy 0-8), aby obsłużyć S1 (0x08)
+    let offsets: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0]
 
     function i2cWrite(addr: number, reg: number, value: number) {
         let buf = pins.createBuffer(2)
@@ -229,6 +231,18 @@ namespace motor {
 
 
     /**
+     * Ustaw offset dla konkretnego serwa (Kalibracja).
+     * @param index Wybierz serwo (S1-S8)
+     * @param offset Wartość korekty w stopniach (np. -10 do 10)
+     */
+    //% weight=95
+    //% blockId=motor_setServoOffset block="Calibrate servo %index|by %offset|stopni"
+    //% offset.min=-15 offset.max=15
+    export function setServoOffset(index: Servos, offset: number): void {
+        offsets[index] = offset;
+    }
+    
+    /**
 	 * Steering gear control function.
      * S1~S8.
      * 0°~180°.
@@ -241,9 +255,20 @@ namespace motor {
         if (!initialized) {
             initPCA9685()
         }
-        // 50hz
-        let v_us = (degree * 1800 / 180 + 600) // 0.6ms ~ 2.4ms
+
+        // Pobieramy offset dla konkretnego serwa (index to wartość z enum Servos)
+        let offset = offsets[index] || 0;
+        let finalDegree = degree + offset;
+
+        // Zabezpieczenie zakresu (Clamp) 0-180
+        if (finalDegree < 0) finalDegree = 0;
+        if (finalDegree > 180) finalDegree = 180;
+
+        // Oryginalny wzór przeliczania z Twojego pliku main.ts
+        let v_us = (finalDegree * 1800 / 180 + 600) // 0.6ms ~ 2.4ms
         let value = v_us * 4096 / 20000
+        
+        // Wykorzystanie oryginalnej logiki adresowania kanałów (index + 7)
         setPwm(index + 7, 0, value)
     }
 
