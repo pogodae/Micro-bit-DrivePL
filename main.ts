@@ -231,12 +231,12 @@ namespace motor {
 
 
     /**
-     * Ustaw offset dla konkretnego serwa (Kalibracja).
-     * @param index Wybierz serwo (S1-S8)
-     * @param offset Wartość korekty w stopniach (np. -10 do 10)
+     * Set offset for specific servo (Calibration).
+     * @param index Select servo (S1-S8)
+     * @param offset Offset value in degrees (ex. -10 do 10)
      */
     //% weight=95
-    //% blockId=motor_setServoOffset block="Calibrate servo %index|by %offset|stopni"
+    //% blockId=motor_setServoOffset block="Calibrate servo %index|by %offset|degree"
     //% offset.min=-15 offset.max=15
     export function setServoOffset(index: Servos, offset: number): void {
         offsets[index] = offset;
@@ -256,19 +256,17 @@ namespace motor {
             initPCA9685()
         }
 
-        // Pobieramy offset dla konkretnego serwa (index to wartość z enum Servos)
+        // Grab offset for specific servo (index value from enum Servos)
         let offset = offsets[index] || 0;
         let finalDegree = degree + offset;
 
-        // Zabezpieczenie zakresu (Clamp) 0-180
+        // Range protection (Clamp) 0-180
         if (finalDegree < 0) finalDegree = 0;
         if (finalDegree > 180) finalDegree = 180;
 
-        // Oryginalny wzór przeliczania z Twojego pliku main.ts
-        let v_us = (finalDegree * 1800 / 180 + 600) // 0.6ms ~ 2.4ms
-        let value = v_us * 4096 / 20000
-        
-        // Wykorzystanie oryginalnej logiki adresowania kanałów (index + 7)
+        // Calculation formula (range expanded 500-2000)
+        let v_us = (finalDegree * 2000 / 180 + 500) // 0.6ms ~ 2.4ms
+        let value = v_us * 4096 / 20000               
         setPwm(index + 7, 0, value)
     }
 
