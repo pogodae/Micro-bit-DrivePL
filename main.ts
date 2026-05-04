@@ -314,8 +314,8 @@ namespace motor {
         if (speed > 100) speed = 100;
         if (speed < -100) speed = -100;
 
-        // 0 → 1500µs (stop), -100 → 1000µs (full CCW), +100 → 2000µs (full CW)
-        let v_us = 1500 + speed * 5;
+        // 0 → 1500µs (stop), -100 → 500µs (full CCW), +100 → 2500µs (full CW)
+        let v_us = 1500 + speed * 10;
         let value = v_us * 4096 / 20000;
         setPwm(index + 7, 0, value)
     }
