@@ -298,24 +298,23 @@ namespace motor {
 
     /**
      * Continuous rotation servo (360°) speed and direction control.
-     * Compatible with GeekServo 360 and similar servos.
-     * Speed: -100 (full CCW) to 100 (full CW), 0 = stop.
-     * S1~S8.
+     * S1~S8. Speed: 0 (stop) to 100 (full speed).
      */
-    //% blockId=motor_servo360 block="Servo 360°|%index|speed|%speed"
+    //% blockId=motor_servo360 block="Servo 360°|%index|kierunek|%direction|prędkość|%speed"
     //% weight=98
-    //% speed.min=-100 speed.max=100
+    //% speed.min=0 speed.max=100
     //% index.fieldEditor="gridpicker" index.fieldOptions.columns=4
-    export function servo360(index: Servos, speed: number): void {
+    //% direction.fieldEditor="gridpicker" direction.fieldOptions.columns=2
+    export function servo360(index: Servos, direction: Dir, speed: number): void {
         if (!initialized) {
             initPCA9685()
         }
 
         if (speed > 100) speed = 100;
-        if (speed < -100) speed = -100;
+        if (speed < 0) speed = 0;
 
-        // 0 → 1500µs (stop), -100 → 500µs (full CCW), +100 → 2500µs (full CW)
-        let v_us = 1500 + speed * 10;
+        // CW: 1500 + speed*10 (1500–2500µs), CCW: 1500 - speed*10 (1500–500µs)
+        let v_us = 1500 + direction * speed * 10;
         let value = v_us * 4096 / 20000;
         setPwm(index + 7, 0, value)
     }

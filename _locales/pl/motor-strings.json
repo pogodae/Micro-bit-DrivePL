@@ -3,7 +3,7 @@
     "motor.Dir.CCW|block": "W lewo",
     "motor.servo|block": "Servo|%index|stopnie|%degree",
     "motor.servo270|block": "Servo 270°|%index|stopnie|%degree",
-    "motor.servo360|block": "Servo 360°|%index|prędkość|%speed",
+    "motor.servo360|block": "Servo 360°|%index|kierunek|%direction|prędkość|%speed",
     "motor.setServoOffset|block": "Kalibruj servo %index|o %offset|stopni",
     "motor.MotorRun|block": "Silnik|%index|kierunek|%Dir|prędkość|%speed",
     "motor.motorStop|block": "Zatrzymaj silnik|%index",
