@@ -271,6 +271,31 @@ namespace motor {
     }
 
     /**
+     * Steering gear control function for 270° servos.
+     * S1~S8.
+     * 0°~270°.
+     */
+    //% blockId=motor_servo270 block="Servo 270°|%index|degree|%degree"
+    //% weight=99
+    //% degree.min=0 degree.max=270
+    //% index.fieldEditor="gridpicker" index.fieldOptions.columns=4
+    export function servo270(index: Servos, degree: number): void {
+        if (!initialized) {
+            initPCA9685()
+        }
+
+        let offset = offsets[index] || 0;
+        let finalDegree = degree + offset;
+
+        if (finalDegree < 0) finalDegree = 0;
+        if (finalDegree > 270) finalDegree = 270;
+
+        let v_us = (finalDegree * 2000 / 270 + 500)
+        let value = v_us * 4096 / 20000
+        setPwm(index + 7, 0, value)
+    }
+
+    /**
 	 * Execute a motor
      * M1~M4.
      * speed(0~255).
