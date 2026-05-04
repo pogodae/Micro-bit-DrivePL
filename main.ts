@@ -300,7 +300,7 @@ namespace motor {
      * Continuous rotation servo (360°) speed and direction control.
      * S1~S8. Speed: 0 (stop) to 100 (full speed).
      */
-    //% blockId=motor_servo360 block="Servo 360°|%index|kierunek|%direction|prędkość|%speed"
+    //% blockId=motor_servo360 block="Servo 360°|%index|direction|%direction|speed|%speed"
     //% weight=98
     //% speed.min=0 speed.max=100
     //% index.fieldEditor="gridpicker" index.fieldOptions.columns=4
