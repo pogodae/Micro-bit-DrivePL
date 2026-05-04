@@ -277,7 +277,7 @@ namespace motor {
      */
     //% blockId=motor_servo270 block="Servo 270°|%index|degree|%degree"
     //% weight=99
-    //% degree.min=0 degree.max=270
+    //% degree.min=-135 degree.max=135
     //% index.fieldEditor="gridpicker" index.fieldOptions.columns=4
     export function servo270(index: Servos, degree: number): void {
         if (!initialized) {
@@ -285,7 +285,8 @@ namespace motor {
         }
 
         let offset = offsets[index] || 0;
-        let finalDegree = degree + offset;
+        // 0° → środek zakresu (135° fizycznie)
+        let finalDegree = degree + offset + 135;
 
         if (finalDegree < 0) finalDegree = 0;
         if (finalDegree > 270) finalDegree = 270;
