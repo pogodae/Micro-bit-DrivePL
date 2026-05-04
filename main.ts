@@ -313,8 +313,8 @@ namespace motor {
         if (speed > 100) speed = 100;
         if (speed < 0) speed = 0;
 
-        // CW: 1500 + speed*10 (1500–2500µs), CCW: 1500 - speed*10 (1500–500µs)
-        let v_us = 1500 + direction * speed * 10;
+        // CW: 1500 - speed*10 (1500–500µs), CCW: 1500 + speed*10 (1500–2500µs)
+        let v_us = 1500 - direction * speed * 10;
         let value = v_us * 4096 / 20000;
         setPwm(index + 7, 0, value)
     }
