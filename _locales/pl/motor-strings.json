@@ -1,0 +1,17 @@
+{
+    "motor.Dir.CW|block": "W prawo",
+    "motor.Dir.CCW|block": "W lewo",
+    "motor.servo|block": "Servo|%index|stopnie|%degree",
+    "motor.servo270|block": "Servo 270°|%index|stopnie|%degree",
+    "motor.servo360|block": "Servo 360°|%index|prędkość|%speed",
+    "motor.setServoOffset|block": "Kalibruj servo %index|o %offset|stopni",
+    "motor.MotorRun|block": "Silnik|%index|kierunek|%Dir|prędkość|%speed",
+    "motor.motorStop|block": "Zatrzymaj silnik|%index",
+    "motor.motorStopAll|block": "Zatrzymaj wszystkie silniki",
+    "motor.stepperDegree_42|block": "Silnik krokowy 42|%index|kierunek|%direction|stopnie|%degree",
+    "motor.stepperTurn_42|block": "Silnik krokowy 42|%index|kierunek|%direction|obroty|%turn",
+    "motor.stepperDegree_28|block": "Silnik krokowy 28|%index|kierunek|%direction|stopnie|%degree",
+    "motor.stepperTurn_28|block": "Silnik krokowy 28|%index|kierunek|%direction|obroty|%turn",
+    "motor.stepperDegreeDual_42|block": "Dwa silniki krokowe %stepper|M1_M2 kierunek %direction1|stopnie %degree1|M3_M4 kierunek %direction2|stopnie %degree2",
+    "motor.stepperTurnDual_42|block": "Dwa silniki krokowe %stepper|M1_M2 kierunek %direction1|obroty %trun1|M3_M4 kierunek %direction2|obroty %trun2"
+}
